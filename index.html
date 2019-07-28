@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <meta charset="utf-8">
+    <title>菜鸟云贷</title>
+</head>
+<body>
+
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-color:rgb(11,110,255);display: block; opacity: 1; transform: translateX(0px);">
+            <div style="margin-top:10px;" id="cn_logo"></div>
+             <div style="margin-top:250px;" ><img src="img/logo.png" style="width:90%;"/></div>
+            <h1 class="ml8">
+                            <span class="letters-container">
+                              
+                             
+                            </span>
+                <!--<span class="circle circle-white"></span>
+                <span class="circle circle-dark"></span>
+                <span class="circle circle-container"><span class="circle circle-dark-dashed"></span></span>-->
+            </h1>
+
+        </div>
+        <div class="swiper-slide color-2">
+            <img id="white_people" src="img/white_people.png"  style="width:500px; height:500px;position:absolute;top:400px;left:30px;"/>
+            <img id="white_people_words" src="img/white_people_words.png"  style="width:500px; height:500px;position: absolute;top:100px;left:450px;"/>
+
+            <img id="black_people" src="img/black_people.png"  style="width:500px; height:500px;position:absolute;top:1080px;left:500px;"/>
+            <img id="black_people_words" src="img/black_people_words.png"  style="width:500px; height:500px;position:absolute;top:900px;left:180px;"/>
+
+        </div>
+        <div class="swiper-slide color-3">
+            <img src="img/head-page-1.png" style="position: absolute;top:0;"/>
+             <img src="img/p3.jpg" style="position: absolute;top:300px; width:90%;"/>
+              <!-- <img src="img/test1.png" style="position: absolute;top:800px; width:90%;"/>-->
+            <div style="margin-top:500px;">
+                <h1 class="ml9">
+                        <span class="text-wrapper">
+                            <span class="letters">该业务是指由建行与菜鸟共同开发，以菜鸟金融作为合作平台提供的供应链数据信息为基础，对符合条件的小微企业客户提供的互联网全流程在线办理的大数据信用信贷业务</span>
+                        </span>
+                </h1>
+            </div>
+           
+        </div>
+        <div class="swiper-slide color-4">
+            <div style="position: absolute;top:50px;">
+                <h1 class="ml14">
+                            <span class="text-wrapper">
+                              <span class="letters">三大优势</span>
+                              <span class="line"></span>
+                            </span>
+                </h1>
+            </div>
+            <div>
+                <img src="img/advance.png" style="width:700px;"/>
+            </div>
+        </div>
+        <div class="swiper-slide color-5" style="position:relative; background:#000">
+        <canvas id="c" style="position:absolute; width:100%; height:100%; top:0; left:0; z-index:1"></canvas>
+            <img src="./img/final_bottom2.png" style="width:600px; z-index:100"/>
+        </div>
+
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/swiper.min.js"></script>
+
+<script src="js/brandicon.js"></script>
+<script src="js/anime.min.js"></script>
+<script src="js/app.js"></script>
+<script>
+var c = document.getElementById("c");
+var ctx = c.getContext("2d");
+
+//making the canvas full screen
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+
+//chinese characters - taken from the unicode charset
+var chinese = "￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥";
+//converting the string into an array of single characters
+chinese = chinese.split("");
+
+var font_size = 20;
+var columns = c.width/font_size; //number of columns for the rain
+//an array of drops - one per column
+var drops = [];
+//x below is the x coordinate
+//1 = y co-ordinate of the drop(same for every drop initially)
+for(var x = 0; x < columns; x++)
+	drops[x] = 1; 
+
+//drawing the characters
+function draw()
+{
+	//Black BG for the canvas
+	//translucent BG to show trail
+
+	//ctx.fillStyle ='rgba(255, 255, 255, 0)';
+	ctx.fillStyle = "rgb(0,102,255,0.05)"; //green text
+	ctx.fillRect(0, 0, c.width, c.height);
+	
+	ctx.fillStyle = "#fce07d"; //green text
+	ctx.font = font_size + "px arial";
+	//looping over drops
+	for(var i = 0; i < drops.length; i++)
+	{
+		//a random chinese character to print
+		var text = chinese[Math.floor(Math.random()*chinese.length)];
+		
+		//x = i*font_size, y = value of drops[i]*font_size
+		ctx.fillText(text, i*font_size, drops[i]*font_size);
+		
+		//sending the drop back to the top randomly after it has crossed the screen
+		//adding a randomness to the reset to make the drops scattered on the Y axis
+		if(drops[i]*font_size > c.height && Math.random() > 0.975)
+			drops[i] = 0;
+		
+		//incrementing Y coordinate
+		drops[i]++;
+	}
+}
+
+
+setInterval(draw, 33);
+</script>
+</body>
+</html>
